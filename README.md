@@ -548,6 +548,24 @@ The key lesson was:
 | Container status | ✅ Healthy |
 
 
+## 🏗️ DevOps Architecture
+
+```mermaid
+flowchart TD
+    A[Developer] --> B[GitHub Repository]
+    B --> C[Jenkins CI/CD Pipeline]
+
+    C --> D[npm install]
+    D --> E[Run Tests]
+    E --> F[Docker Build]
+
+    F --> G[Docker Image]
+    G --> H[Docker Hub]
+
+    H --> I[Kubernetes Deployment]
+    I --> J[Application Running]
+```
+
 ---
 
 # ⚙️  Jenkins CI/CD Pipeline
@@ -574,7 +592,9 @@ Jenkins Pipeline
       +-- Build Docker Image
       |
       +-- Push Docker Image to Docker Hub
----
+--
+
+-
 
 # 🎯 Current Project Status
 
