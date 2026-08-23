@@ -563,7 +563,8 @@ The project currently has:
 - ✅ Docker container
 - ✅ Docker HEALTHCHECK
 - ✅ Healthy Docker container
-- ⏳ Jenkins CI/CD
+- ✅ Jenkins CI/CD
+- ⏳ Docker image publishing-
 - ⏳ Kubernetes
 - ⏳ Nginx
 - ⏳ Terraform
