@@ -22,6 +22,10 @@ The project will progressively introduce:
 - Cloud deployment
 - Monitoring and observability
 
+## 🏗️ DevOps Architecture
+
+![DevOps Architecture](assets/devops-architecture.png)
+
 ## 🛠️ Technology Stack
 
 | Technology | Purpose |
