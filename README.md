@@ -1,125 +1,115 @@
 # 🚀 End-to-End DevOps Node.js Application
 
-A hands-on DevOps project demonstrating how a Node.js application is developed, tested, containerized, and prepared for CI/CD and cloud deployment.
+A complete DevOps portfolio project demonstrating the full lifecycle of
+a Node.js application:
+
+-   Application development
+-   Automated testing
+-   Docker containerization
+-   Jenkins CI/CD automation
+-   Docker Hub image publishing
+-   Kubernetes deployment
+-   Nginx Ingress routing
+-   Terraform Infrastructure as Code
+-   AWS EC2 cloud deployment
+
+------------------------------------------------------------------------
 
 ## 👨‍💻 Project Owner
 
 **fareez-lic**
 
-## 📋 Project Overview
+------------------------------------------------------------------------
 
-This project demonstrates an end-to-end DevOps workflow using a Node.js and Express application.
+# 🏗️ Architecture
 
-The project will progressively introduce:
+``` text
+Developer
+    |
+    v
+GitHub Repository
+    |
+    v
+Jenkins CI/CD Pipeline
+    |
+    +----------------+
+    |                |
+    v                v
+ Run Tests      Build Docker Image
+                    |
+                    v
+              Docker Hub
+                    |
+        +-----------+-----------+
+        |                       |
+        v                       v
+ Kubernetes Deployment     AWS EC2 Deployment
+        |                       |
+        v                       v
+ Nginx Ingress              Docker Container
+        |                       |
+        v                       v
+ Node.js Pods              Node.js Application
+        |
+        v
+ Application Health Check
+```
 
-- Application development
-- Automated testing
-- Docker containerization
-- Jenkins CI/CD
-- Kubernetes deployment
-- Nginx
-- Terraform infrastructure
-- Cloud deployment
-- Monitoring and observability
+------------------------------------------------------------------------
 
-## 🏗️ DevOps Architecture
+# 🛠️ Technology Stack
 
-![DevOps Architecture](assets/devops-architecture.png)
+  Technology      Purpose
+  --------------- -------------------------
+  Node.js         Application runtime
+  Express.js      Web framework
+  Jest            Automated testing
+  Supertest       API testing
+  Docker          Containerization
+  Jenkins         CI/CD automation
+  Docker Hub      Container registry
+  Kubernetes      Container orchestration
+  Nginx Ingress   Traffic routing
+  Terraform       Infrastructure as Code
+  AWS EC2         Cloud deployment
 
-## 🛠️ Technology Stack
+------------------------------------------------------------------------
 
-| Technology | Purpose |
-|---|---|
-| Node.js | Application runtime |
-| Express.js | Web application framework |
-| Jest | Automated testing |
-| Supertest | API testing |
-| Docker | Containerization |
-| Jenkins | CI/CD automation |
-| Kubernetes | Container orchestration |
-| Nginx | Reverse proxy |
-| Terraform | Infrastructure as Code |
+# 📁 Project Structure
 
-## 📁 Project Structure
-
-```text
+``` text
 devops-node-app/
-├── .dockerignore
-├── Dockerfile
 ├── app.js
 ├── app.test.js
-├── package.json
-├── package-lock.json
+├── Dockerfile
+├── Jenkinsfile
+├── k8s/
+│   ├── deployment.yaml
+│   ├── service.yaml
+│   └── ingress.yaml
+├── terraform/
+│   ├── main.tf
+│   ├── provider.tf
+│   ├── variables.tf
+│   └── outputs.tf
+├── assets/
+│   └── devops-architecture.png
 └── README.md
 ```
 
-## 🌐 Application Endpoints
+------------------------------------------------------------------------
 
-| Endpoint | Method | Purpose |
-|---|---|---|
-| `/` | GET | Application welcome/status |
-| `/health` | GET | Application health check |
-| `/about` | GET | Project and technology information |
+# 🌐 Application Endpoints
 
----
-
-# 🟢 Application Development
-
-The application was developed using Node.js and Express.js.
-
-The main application file is:
-
-```text
-app.js
-```
-
-The application runs on port:
-
-```text
-3000
-```
-
-Start the application locally with:
-
-```bash
-node app.js
-```
-
-Expected output:
-
-```text
-App running on port 3000
-```
-
-## Testing the Application Locally
-
-Test the main endpoint:
-
-```bash
-curl http://localhost:3000
-```
-
-Test the health endpoint:
-
-```bash
-curl http://localhost:3000/health
-```
-
-Test the project information endpoint:
-
-```bash
-curl http://localhost:3000/about
-```
-
-For formatted JSON output, `jq` can be used:
-
-```bash
-curl http://localhost:3000 | jq
-```
+  Endpoint    Purpose
+  ----------- -------------------------
+  `/`         Application status
+  `/health`   Health check endpoint
+  `/about`    Application information
 
 Example response:
 
-```json
+``` json
 {
   "message": "🚀 DevOps Node App is Live!",
   "version": "1.0.0",
@@ -128,453 +118,80 @@ Example response:
 }
 ```
 
----
+------------------------------------------------------------------------
 
 # 🧪 Automated Testing
 
-Jest and Supertest were added to test the Express application.
+Testing is implemented using:
 
-Run the test suite with:
+-   Jest
+-   Supertest
 
-```bash
+Run tests:
+
+``` bash
 npm test
 ```
 
-The test suite verifies:
+Tests validate:
 
-- `GET /` returns HTTP 200
-- `GET /health` returns a healthy status
-- `GET /about` returns project information
+-   Application root endpoint
+-   Health endpoint
+-   About endpoint
 
-The test suite completed successfully:
-
-```text
-Test Suites: 1 passed, 1 total
-Tests:       3 passed, 3 total
-```
-
-This provides a basic automated testing foundation for the CI/CD pipeline that will be added later.
-
----
+------------------------------------------------------------------------
 
 # 🐳 Docker Containerization
 
-The application was containerized using Docker.
+Docker image:
 
-The Docker image is based on:
-
-```text
-node:18-alpine
+``` text
+kam810/devops-node-app:latest
 ```
 
-## Dockerfile
+Features:
 
-The final Dockerfile contains:
+-   Node.js 18 Alpine base image
+-   Production dependency installation
+-   Port 3000 exposure
+-   Container health check
 
-```dockerfile
-FROM node:18-alpine
+Build image:
 
-RUN apk add --no-cache curl
-
-WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm install --production
-
-COPY . .
-
-EXPOSE 3000
-
-HEALTHCHECK --interval=30s --timeout=3s \
-  CMD curl -f http://localhost:3000/health || exit 1
-
-CMD ["node", "app.js"]
+``` bash
+docker build -t kam810/devops-node-app:latest .
 ```
 
-## Dockerfile Explanation
+Run container:
 
-### Base Image
-
-```dockerfile
-FROM node:18-alpine
+``` bash
+docker run -d \
+-p 3000:3000 \
+--name devops-node-app \
+kam810/devops-node-app:latest
 ```
 
-Uses a lightweight Alpine-based Node.js image.
+Verify:
 
-### Install curl
-
-```dockerfile
-RUN apk add --no-cache curl
-```
-
-Installs `curl` inside the container.
-
-This is required because the Docker health check uses `curl`.
-
-### Working Directory
-
-```dockerfile
-WORKDIR /app
-```
-
-Sets `/app` as the working directory inside the container.
-
-### Copy package files
-
-```dockerfile
-COPY package*.json ./
-```
-
-Copies `package.json` and `package-lock.json`.
-
-### Install production dependencies
-
-```dockerfile
-RUN npm install --production
-```
-
-Installs the application's production dependencies.
-
-### Copy application files
-
-```dockerfile
-COPY . .
-```
-
-Copies the project files into the image, excluding files listed in `.dockerignore`.
-
-### Expose application port
-
-```dockerfile
-EXPOSE 3000
-```
-
-Documents that the application listens on port 3000.
-
-### Docker Health Check
-
-```dockerfile
-HEALTHCHECK --interval=30s --timeout=3s \
-  CMD curl -f http://localhost:3000/health || exit 1
-```
-
-Docker periodically calls the application's `/health` endpoint.
-
-If the command succeeds, the container can be reported as healthy.
-
-### Start the application
-
-```dockerfile
-CMD ["node", "app.js"]
-```
-
-Starts the Node.js application when the container runs.
-
----
-
-# 🚫 .dockerignore
-
-A `.dockerignore` file was created to prevent unnecessary files from being included in the Docker build context.
-
-Current exclusions include:
-
-```text
-node_modules
-npm-debug.log
-.git
-.env
-*.test.js
-.gitignore
-README.md
-```
-
-This helps keep the Docker build context cleaner and prevents development-only files from being copied into the production image.
-
----
-
-# 🏗️ Building the Docker Image
-
-The Docker image was built with:
-
-```bash
-docker build -t devops-node-app .
-```
-
-The resulting image is:
-
-```text
-devops-node-app:latest
-```
-
-The Docker image was successfully built and tagged.
-
----
-
-# ▶️ Running the Docker Container
-
-The container was started with:
-
-```bash
-docker run -p 3000:3000 \
-  --name devops-node-app-container \
-  devops-node-app
-```
-
-The port mapping is:
-
-```text
-Host port 3000
-       ↓
-Container port 3000
-```
-
-The application starts with:
-
-```text
-App running on port 3000
-```
-
----
-
-# 🔍 Docker Health Check Troubleshooting
-
-During the Docker implementation, the container initially reported:
-
-```text
-Up ... (unhealthy)
-```
-
-However, the application itself was responding correctly.
-
-The `/health` endpoint worked from the host:
-
-```bash
-curl http://localhost:3000/health
-```
-
-and returned a healthy response.
-
-## Investigation
-
-The Docker container health information was inspected with:
-
-```bash
-docker inspect \
-  --format='{{json .State.Health}}' \
-  devops-node-app-container | jq
-```
-
-The health-check log showed:
-
-```text
-/bin/sh: curl: not found
-```
-
-## Root Cause
-
-The Dockerfile contained a health check using:
-
-```bash
-curl -f http://localhost:3000/health
-```
-
-However, the `node:18-alpine` image did not have `curl` installed.
-
-The host machine had `curl`, but the Docker container is an isolated environment with its own installed packages.
-
-Therefore:
-
-```text
-Application health       ✅
-Docker health check      ❌
-```
-
-## Fix
-
-The following line was added to the Dockerfile:
-
-```dockerfile
-RUN apk add --no-cache curl
-```
-
-Because Alpine Linux uses the `apk` package manager, this installs `curl` inside the container.
-
----
-
-# 🔄 Rebuilding After the Fix
-
-After updating the Dockerfile, the Docker image was rebuilt:
-
-```bash
-docker build -t devops-node-app .
-```
-
-The rebuilt image successfully included `curl`.
-
-The old container was stopped:
-
-```bash
-docker stop devops-node-app-container
-```
-
-The old container was removed:
-
-```bash
-docker rm devops-node-app-container
-```
-
-A new container was created from the rebuilt image:
-
-```bash
-docker run -p 3000:3000 \
-  --name devops-node-app-container \
-  devops-node-app
-```
-
----
-
-# ✅ Final Docker Validation
-
-Docker was checked with:
-
-```bash
+``` bash
 docker ps
 ```
 
-The final result showed:
+Expected:
 
-```text
-Up ... (healthy)
+``` text
+STATUS: Up (healthy)
 ```
 
-The container was also correctly mapped to:
+------------------------------------------------------------------------
 
-```text
-0.0.0.0:3000->3000/tcp
-```
+# ⚙️ Jenkins CI/CD Pipeline
 
-## Final Health Check
+The Jenkins pipeline automates the build and image publishing process.
 
-The application health endpoint returned:
+Pipeline stages:
 
-```json
-{
-  "status": "healthy",
-  "uptime": "...",
-  "timestamp": "..."
-}
-```
-
-Docker therefore successfully recognized the container as:
-
-```text
-healthy
-```
-
----
-
-# 🔗 Application Flow
-
-```text
-User / Browser
-      |
-      | HTTP :3000
-      v
-Ubuntu Host
-      |
-      | Port 3000:3000
-      v
-Docker Container
-      |
-      +-- Node.js
-      +-- Express
-      +-- curl
-      |
-      v
-GET /health
-      |
-      v
-Docker HEALTHCHECK
-      |
-      v
-healthy
-```
-
----
-
-# 🧠 DevOps Troubleshooting Lesson
-
-This project demonstrated a real-world troubleshooting workflow:
-
-```text
-Observe
-   ↓
-Investigate
-   ↓
-Find Root Cause
-   ↓
-Fix
-   ↓
-Rebuild
-   ↓
-Recreate
-   ↓
-Validate
-   ↓
-Document
-```
-
-The key lesson was:
-
-> A healthy application does not automatically mean a healthy Docker container. The container's health-check command and its dependencies must also be available inside the container.
-
----
-
-# 📊 Docker Verification Summary
-
-| Check | Result |
-|---|---|
-| Docker installed | ✅ |
-| Docker daemon running | ✅ |
-| Docker image built | ✅ |
-| Container created | ✅ |
-| Application running | ✅ |
-| Port 3000 exposed | ✅ |
-| `/` endpoint | ✅ |
-| `/health` endpoint | ✅ |
-| `/about` endpoint | ✅ |
-| Docker HEALTHCHECK | ✅ |
-| Container status | ✅ Healthy |
-
-
-## 🏗️ DevOps Architecture
-
-```mermaid
-flowchart TD
-    A[Developer] --> B[GitHub Repository]
-    B --> C[Jenkins CI/CD Pipeline]
-
-    C --> D[npm install]
-    D --> E[Run Tests]
-    E --> F[Docker Build]
-
-    F --> G[Docker Image]
-    G --> H[Docker Hub]
-
-    H --> I[Kubernetes Deployment]
-    I --> J[Application Running]
-```
-
----
-
-# ⚙️  Jenkins CI/CD Pipeline
-
-Jenkins was integrated to automate the application build and Docker image publishing process.
-
-The Jenkins pipeline performs the following stages:
-
-```text
+``` text
 Developer Push
       |
       v
@@ -585,68 +202,165 @@ Jenkins Pipeline
       |
       +-- Checkout Source Code
       |
-      +-- Install Node.js Dependencies
+      +-- Install Dependencies
       |
       +-- Run Automated Tests
       |
       +-- Build Docker Image
       |
-      +-- Push Docker Image to Docker Hub
---
+      +-- Push Image to Docker Hub
+```
 
--
+Published image:
 
-# 🎯 Current Project Status
+``` text
+kam810/devops-node-app:latest
+```
 
-The project currently has:
+------------------------------------------------------------------------
 
-- ✅ Node.js application
-- ✅ Express.js API
-- ✅ Jest tests
-- ✅ Supertest API tests
-- ✅ Dockerfile
-- ✅ `.dockerignore`
-- ✅ Docker image
-- ✅ Docker container
-- ✅ Docker HEALTHCHECK
-- ✅ Healthy Docker container
-- ✅ Jenkins CI/CD
-- ✅ Docker image publishing-
-- ⏳ Kubernetes
-- ⏳ Nginx
-- ⏳ Terraform
-- ⏳ Cloud deployment
-- ⏳ Monitoring and observability
+# ☸️ Kubernetes Deployment
 
----
+Kubernetes resources:
 
-# 🚀 Next DevOps Goals
+-   Deployment
+-   Service
+-   Nginx Ingress
 
-The project will continue to evolve through the following stages:
+Deployment configuration:
 
-1. Git version control
-2. GitHub repository
-3. Jenkins CI/CD pipeline
-4. Docker image publishing
-5. Kubernetes deployment
+-   Replicas: 2
+-   Image: `kam810/devops-node-app:latest`
+-   Container port: 3000
 
-6. Nginx reverse proxy
-7. Terraform infrastructure as code
-8. Cloud deployment
-9. Monitoring and observability
+Validation commands:
 
-The goal is to turn this initial Node.js application into a complete **end-to-end DevOps portfolio project**.
+``` bash
+kubectl get pods
+kubectl get service
+kubectl get ingress
+```
 
----
+Verified results:
 
-## 📌 Project Philosophy
+``` text
+2/2 application pods running
+Nginx Ingress routing successful
+Application health endpoint responding
+```
 
-This project is being built incrementally rather than simply copying a finished solution.
+Ingress test:
 
-Each stage is:
+``` bash
+curl -H "Host: devops-node.local" http://192.168.49.2/health
+```
 
-```text
+Response:
+
+``` json
+{
+  "status": "healthy"
+}
+```
+
+------------------------------------------------------------------------
+
+# 🏗️ Terraform AWS Deployment
+
+Terraform provisions AWS infrastructure:
+
+Resources created:
+
+-   AWS EC2 instance
+-   Security Group
+
+Validation:
+
+``` bash
+terraform validate
+terraform apply
+```
+
+AWS application health check:
+
+``` bash
+curl http://<AWS-IP>:3000/health
+```
+
+Example response:
+
+``` json
+{
+  "status": "healthy"
+}
+```
+
+------------------------------------------------------------------------
+
+# 🔍 Troubleshooting Experience
+
+This project demonstrated real DevOps troubleshooting:
+
+``` text
+Observe
+   ↓
+Investigate
+   ↓
+Find Root Cause
+   ↓
+Fix
+   ↓
+Rebuild
+   ↓
+Validate
+   ↓
+Document
+```
+
+Example:
+
+Docker container initially reported unhealthy because the health check
+required `curl` inside the container.
+
+Resolution:
+
+``` dockerfile
+RUN apk add --no-cache curl
+```
+
+After rebuilding, the container reported:
+
+``` text
+healthy
+```
+
+------------------------------------------------------------------------
+
+# ✅ Final Validation Summary
+
+  Component                  Status
+  -------------------------- --------
+  Node.js Application        ✅
+  Automated Tests            ✅
+  Docker Container           ✅
+  Docker Health Check        ✅
+  Jenkins CI/CD              ✅
+  Docker Hub Publishing      ✅
+  Kubernetes Deployment      ✅
+  Nginx Ingress              ✅
+  Terraform Infrastructure   ✅
+  AWS EC2 Deployment         ✅
+
+------------------------------------------------------------------------
+
+# 📌 DevOps Philosophy
+
+This project was built using:
+
+``` text
 Build → Test → Troubleshoot → Fix → Validate → Document
 ```
 
-This demonstrates practical DevOps skills and creates a reproducible project that can be showcased on GitHub.
+The goal was not only to deploy an application, but to demonstrate
+practical DevOps skills through automation, troubleshooting,
+infrastructure management, and continuous improvement.
