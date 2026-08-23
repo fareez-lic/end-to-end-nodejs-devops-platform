@@ -23,28 +23,31 @@ pipeline {
         }
 
         stage('Build Docker Image') {
-    steps {
-        sh 'docker build -t kam810/devops-node-app:latest .'
-    }
-}
-
-stage('Push Docker Image') {
-    steps {
-        withCredentials([usernamePassword(
-            credentialsId: 'dockerhub',
-            usernameVariable: 'DOCKER_USER',
-            passwordVariable: 'DOCKER_PASS'
-        )]) {
-
-            sh '''
-            echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-            docker push kam810/devops-node-app:latest
-            '''
+            steps {
+                sh 'docker build -t kam810/devops-node-app:latest .'
+            }
         }
+
+        stage('Push Docker Image') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+
+                    sh '''
+                    echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+                    docker push kam810/devops-node-app:latest
+                    '''
+                }
+            }
+        }
+
     }
-}
 
     post {
+
         success {
             echo 'Pipeline completed successfully!'
         }
@@ -52,5 +55,6 @@ stage('Push Docker Image') {
         failure {
             echo 'Pipeline failed!'
         }
-}
+
+    }
 }
