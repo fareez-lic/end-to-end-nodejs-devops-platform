@@ -547,6 +547,33 @@ The key lesson was:
 | Docker HEALTHCHECK | ✅ |
 | Container status | ✅ Healthy |
 
+
+---
+
+# ⚙️  Jenkins CI/CD Pipeline
+
+Jenkins was integrated to automate the application build and Docker image publishing process.
+
+The Jenkins pipeline performs the following stages:
+
+```text
+Developer Push
+      |
+      v
+GitHub Repository
+      |
+      v
+Jenkins Pipeline
+      |
+      +-- Checkout Source Code
+      |
+      +-- Install Node.js Dependencies
+      |
+      +-- Run Automated Tests
+      |
+      +-- Build Docker Image
+      |
+      +-- Push Docker Image to Docker Hub
 ---
 
 # 🎯 Current Project Status
