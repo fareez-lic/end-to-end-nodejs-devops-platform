@@ -564,7 +564,7 @@ The project currently has:
 - ✅ Docker HEALTHCHECK
 - ✅ Healthy Docker container
 - ✅ Jenkins CI/CD
-- ⏳ Docker image publishing-
+- ✅ Docker image publishing-
 - ⏳ Kubernetes
 - ⏳ Nginx
 - ⏳ Terraform
@@ -582,6 +582,7 @@ The project will continue to evolve through the following stages:
 3. Jenkins CI/CD pipeline
 4. Docker image publishing
 5. Kubernetes deployment
+
 6. Nginx reverse proxy
 7. Terraform infrastructure as code
 8. Cloud deployment
