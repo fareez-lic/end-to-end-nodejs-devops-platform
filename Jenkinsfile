@@ -52,5 +52,5 @@ stage('Push Docker Image') {
         failure {
             echo 'Pipeline failed!'
         }
-    }
+}
 }
