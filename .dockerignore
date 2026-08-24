@@ -1,7 +1,21 @@
-node_modules
-npm-debug.log
-.git
+# Node.js dependencies and logs
+node_modules/
+npm-debug.log*
+*.log
+
+# Git and local configuration
+.git/
 .env
+.env.*
+.DS_Store
+
+# Test and coverage output
+coverage/
 *.test.js
-.gitignore
+
+# Deployment, infrastructure, and documentation assets
+assets/
+k8s/
+terraform/
+Jenkinsfile
 README.md
