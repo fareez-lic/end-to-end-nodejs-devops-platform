@@ -76,6 +76,10 @@ Verify the health check:
 curl http://localhost:3000/health
 ```
 
+### Docker validation result
+
+![Docker container health check](assets/docker-health-pass.png)
+
 
 # 🔁 CI/CD Pipeline
 
