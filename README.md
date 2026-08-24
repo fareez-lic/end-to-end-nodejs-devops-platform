@@ -21,6 +21,8 @@ a Node.js application:
 
 ------------------------------------------------------------------------
 
+
+
 # 🏗️ Architecture
 
 ``` text
@@ -67,22 +69,30 @@ Application Health Check
 ```
 
 ------------------------------------------------------------------------
+# 🧪 Testing
 
+Automated API tests are implemented with Jest and Supertest.
+
+Run the test suite:
+
+```bash
+npm test
+```
 # 🛠️ Technology Stack
 
-  Technology      Purpose
-  --------------- -------------------------
-  Node.js         Application runtime
-  Express.js      Web framework
-  Jest            Automated testing
-  Supertest       API testing
-  Docker          Containerization
-  Jenkins         CI/CD automation
-  Docker Hub      Container registry
-  Kubernetes      Container orchestration
-  Nginx Ingress   Traffic routing
-  Terraform       Infrastructure as Code for provisioning AWS EC2 and security groups
-  AWS EC2         Cloud deployment
+| Technology | Purpose |
+| --- | --- |
+| Node.js | Application runtime |
+| Express.js | Web framework |
+| Jest | Automated testing |
+| Supertest | API testing |
+| Docker | Containerization |
+| Jenkins | CI/CD automation |
+| Docker Hub | Container registry |
+| Kubernetes | Container orchestration |
+| Nginx Ingress | Traffic routing |
+| Terraform | Infrastructure as Code for provisioning AWS EC2 and security groups |
+| AWS EC2 | Cloud deployment |
 
 ------------------------------------------------------------------------
 
