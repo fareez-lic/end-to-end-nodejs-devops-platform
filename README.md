@@ -80,6 +80,8 @@ curl http://localhost:3000/health
 
 ![Docker container health check](assets/docker-health-pass.png)
 
+> **Build optimization:** Updating `.dockerignore` reduced the local Docker build context from **843.6 MB** to **207.4 kB**.
+
 
 # 🔁 CI/CD Pipeline
 
