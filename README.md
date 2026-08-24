@@ -142,6 +142,36 @@ devops-node-app/
 └── README.md
 ```
 
+# ☁️ Terraform: AWS Infrastructure
+
+Terraform provisions the AWS EC2 instance and security group used by this project.
+
+```bash
+cd terraform
+cp terraform.tfvars.example terraform.tfvars
+```
+
+Edit `terraform.tfvars` and replace `YOUR.PUBLIC.IP.ADDRESS/32` with your own public IP followed by `/32`.
+
+```bash
+terraform init
+terraform fmt -check
+terraform plan
+```
+
+Run this only when you intentionally want to create AWS resources:
+
+```bash
+terraform apply
+```
+
+Clean up resources when finished to avoid AWS charges:
+
+```bash
+terraform destroy
+```
+
+
 ------------------------------------------------------------------------
 
 # 🌐 Application Endpoints
