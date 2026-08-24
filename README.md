@@ -127,6 +127,11 @@ curl http://devops-node.local/health
 
 # 🏗️ Architecture
 
+
+![End-to-End DevOps Architecture](assets/devops-architecture-v2.png)
+
+The solid path represents the implemented and locally verified workflow. The dashed Terraform path represents optional AWS provisioning, while monitoring remains a planned enhancement.
+
 ``` text
 Developer
    |
@@ -224,7 +229,11 @@ devops-node-app/
 
 
 ├── assets/
-│   └── devops-architecture.png
+│   ├── devops-architecture-v2.png
+│   ├── docker-health-pass.png
+│   ├── ingress-health-pass.png
+│   ├── npm-test-clean-pass.png
+│   └── terraform-validate-pass.png
 └── README.md
 ```
 
