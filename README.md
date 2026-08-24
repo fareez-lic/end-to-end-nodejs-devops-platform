@@ -25,34 +25,45 @@ a Node.js application:
 
 ``` text
 Developer
-    |
-    v
+   |
+   v
 GitHub Repository
-    |
-    v
+   |
+   v
 Jenkins CI/CD Pipeline
-    |
-    +----------------+
-    |                |
-    v                v
- Run Tests      Build Docker Image
-                    |
-                    v
-              Docker Hub
-                    |
-        +-----------+-----------+
-        |                       |
-        v                       v
- Kubernetes Deployment     AWS EC2 Deployment
-        |                       |
-        v                       v
- Nginx Ingress              Docker Container
-        |                       |
-        v                       v
- Node.js Pods              Node.js Application
-        |
-        v
- Application Health Check
+   |
+   +-------------------+----------------------+
+   |                   |                      |
+   v                   v                      v
+Run Tests        Build Docker Image      Terraform
+                       |                      |
+                       v                      v
+                  Docker Hub          AWS Infrastructure
+                                      (EC2 / Security Group)
+                                             |
+                                             v
+                                     Pull Docker Image
+                                             |
+                                             v
+                                     Docker Container
+                                             |
+                                             v
+                                   Node.js Application
+
+Docker Hub
+   |
+   v
+Kubernetes Deployment
+   |
+   v
+Nginx Ingress
+   |
+   v
+Node.js Pods
+   |
+   v
+Application Health Check
+
 ```
 
 ------------------------------------------------------------------------
@@ -70,10 +81,11 @@ Jenkins CI/CD Pipeline
   Docker Hub      Container registry
   Kubernetes      Container orchestration
   Nginx Ingress   Traffic routing
-  Terraform       Infrastructure as Code
+  Terraform       Infrastructure as Code for provisioning AWS EC2 and security groups
   AWS EC2         Cloud deployment
 
 ------------------------------------------------------------------------
+
 
 # 📁 Project Structure
 
