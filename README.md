@@ -133,7 +133,10 @@ devops-node-app/
 │   ├── main.tf
 │   ├── provider.tf
 │   ├── variables.tf
-│   └── outputs.tf
+│   ├── outputs.tf
+│   └── terraform.tfvars.example
+
+
 ├── assets/
 │   └── devops-architecture.png
 └── README.md
