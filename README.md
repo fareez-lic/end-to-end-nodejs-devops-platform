@@ -14,6 +14,20 @@ a Node.js application:
 -   AWS EC2 cloud deployment
 
 ------------------------------------------------------------------------
+## 📌 Project Status
+
+### Implemented in this repository
+
+- Node.js and Express application with automated Jest/Supertest API tests
+- Docker build with a `/health` container health check
+- Jenkins pipeline configuration for dependency installation, testing, Docker build, and Docker Hub push
+- Kubernetes Deployment, Service, and Nginx Ingress manifests
+- Terraform configuration for an AWS EC2 instance and security group
+
+### Planned enhancement
+
+- Monitoring and observability (for example, Prometheus and Grafana)
+
 
 ## 👨‍💻 Project Owner
 
