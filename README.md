@@ -250,6 +250,10 @@ Run this only when you intentionally want to create AWS resources:
 ```bash
 terraform apply
 ```
+### Terraform validation result
+
+![Terraform formatting and validation passed](assets/terraform-validate-pass.png)
+
 
 Clean up resources when finished to avoid AWS charges:
 
