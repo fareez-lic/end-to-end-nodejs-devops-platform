@@ -21,6 +21,26 @@ a Node.js application:
 
 ------------------------------------------------------------------------
 
+# 🚀 Run Locally
+
+```bash
+npm install
+npm start
+```
+
+The application starts at:
+
+```text
+http://localhost:3000/
+```
+
+Useful endpoints:
+
+```text
+/          # Application status
+/health    # Health check
+/about     # Project details
+```
 
 
 # 🏗️ Architecture
