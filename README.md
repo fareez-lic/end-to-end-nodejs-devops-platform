@@ -182,7 +182,7 @@ npm test
 ```
 ### Test result
 
-![Successful npm test result](assets/npm-test-pass.png)
+![Successful npm test result](assets/npm-test-clean-pass.png)
 
 # 🛠️ Technology Stack
 
