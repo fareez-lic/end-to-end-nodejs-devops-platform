@@ -42,6 +42,27 @@ Useful endpoints:
 /about     # Project details
 ```
 
+# 🐳 Run with Docker
+
+Build the image:
+
+```bash
+docker build -t devops-node-app .
+```
+
+Run the container:
+
+```bash
+docker run -d --name devops-node-app -p 3000:3000 devops-node-app
+```
+
+Verify the health check:
+
+```bash
+curl http://localhost:3000/health
+```
+
+
 
 # 🏗️ Architecture
 
