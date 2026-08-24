@@ -18,7 +18,22 @@ spec:
 
     spec:
       containers:
-      - name: node-app
-        image: kam810/devops-node-app:latest
-        ports:
-        - containerPort: 3000
+        - name: node-app
+          image: kam810/devops-node-app:latest
+
+          ports:
+            - containerPort: 3000
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 20
