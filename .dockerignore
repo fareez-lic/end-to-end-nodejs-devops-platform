@@ -19,3 +19,4 @@ k8s/
 terraform/
 Jenkinsfile
 README.md
+minikube-linux-amd64
