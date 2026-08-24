@@ -1,0 +1,4 @@
+# Copy this file to terraform.tfvars before running Terraform.
+# Do not commit terraform.tfvars because it contains your personal IP address.
+
+ssh_allowed_cidr = "YOUR.PUBLIC.IP.ADDRESS/32"
