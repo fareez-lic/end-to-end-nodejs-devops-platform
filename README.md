@@ -76,6 +76,30 @@ Docker Hub credentials are stored in Jenkins with the credential ID `dockerhub`;
 
 The pipeline reports whether the build completed successfully or failed.
 
+# ☸️ Kubernetes Deployment
+
+The Kubernetes manifests deploy two application replicas, expose them through a Service, and route traffic with Nginx Ingress.
+
+For a local Minikube cluster:
+
+```bash
+minikube addons enable ingress
+kubectl apply -f k8s/
+kubectl get pods,svc,ingress
+```
+
+The Ingress host is `devops-node.local`. Map it to your Minikube IP in your local hosts file before opening it in a browser.
+
+```text
+<MINIKUBE_IP> devops-node.local
+```
+
+Verify the application health endpoint:
+
+```bash
+curl http://devops-node.local/health
+```
+
 
 # 🏗️ Architecture
 
