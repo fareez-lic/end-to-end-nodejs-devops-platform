@@ -120,6 +120,10 @@ Verify the application health endpoint:
 curl http://devops-node.local/health
 ```
 
+### Kubernetes Ingress validation result
+
+![Kubernetes Ingress health check](assets/ingress-health-pass.png)
+
 
 # 🏗️ Architecture
 
