@@ -6,3 +6,9 @@ npm-debug.log*
 coverage/
 minikube-linux-amd64
 README.md.backup
+# Terraform local state and secrets
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+crash.log
