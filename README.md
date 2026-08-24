@@ -508,22 +508,71 @@ After rebuilding, the container reported:
 healthy
 ```
 
+## Additional Problems Solved
+
+### Jest Process Did Not Exit Cleanly
+
+**Problem:** The test command required `--forceExit`, and Jest warned that an asynchronous operation was still running.
+
+**Root cause:** `app.listen()` started the web server whenever `app.js` was imported by Supertest.
+
+**Solution:** Start the server only when `app.js` is executed directly:
+
+```javascript
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`App running on port ${PORT}`);
+  });
+}
+```
+
+I then changed the test script from `jest --forceExit` to `jest`. The test suite completed normally with all three API tests passing.
+
+### Docker Build Context Was Too Large
+
+**Problem:** Docker initially sent approximately **843.6 MB** of build context.
+
+**Root cause:** Local development files, infrastructure directories, screenshots, Git history, and a Minikube binary were included.
+
+**Solution:** I expanded `.dockerignore` to exclude files that are not required by the Node.js image.
+
+**Result:** The build context was reduced from **843.6 MB to 207.4 kB**.
+
+### Kubernetes API Was Unavailable
+
+**Problem:** Kubernetes validation could not connect to the API server.
+
+**Investigation:** `minikube status` showed that the local cluster was stopped.
+
+**Solution:** I started Minikube, enabled the Nginx Ingress addon, reapplied the manifests, and checked the deployment rollout.
+
+**Result:** Two application replicas rolled out successfully, and the `/health` endpoint returned HTTP `200` through Nginx Ingress.
+
+### Terraform SSH Access Was Too Broad
+
+**Problem:** The original AWS security group allowed SSH from `0.0.0.0/0`.
+
+**Solution:** I replaced the public SSH rule with the variable `ssh_allowed_cidr`, added `terraform.tfvars.example`, and excluded real `.tfvars` and state files from Git.
+
+**Result:** `terraform fmt -check` and `terraform validate` completed successfully without creating chargeable AWS resources.
+
+
 ------------------------------------------------------------------------
 
 # ✅ Final Validation Summary
 
-  Component                  Status
-  -------------------------- --------
-  Node.js Application        ✅
-  Automated Tests            ✅
-  Docker Container           ✅
-  Docker Health Check        ✅
-  Jenkins CI/CD              ✅
-  Docker Hub Publishing      ✅
-  Kubernetes Deployment      ✅
-  Nginx Ingress              ✅
-  Terraform Infrastructure   ✅
-  AWS EC2 Deployment         ✅
+  | Component | Status | Evidence |
+|---|---|---|
+| Node.js API | ✅ Verified | `/`, `/health`, and `/about` endpoints |
+| Jest and Supertest | ✅ Verified | 3 of 3 automated API tests passed |
+| Docker image and container | ✅ Verified | Image built and container reported healthy |
+| Jenkins CI/CD | 🟡 Configured | `Jenkinsfile` installs, tests, builds, and pushes |
+| Docker Hub | 🟡 Configured | Pipeline and Kubernetes use `kam810/devops-node-app:latest` |
+| Kubernetes Deployment | ✅ Verified locally | Two replicas successfully rolled out on Minikube |
+| Nginx Ingress | ✅ Verified locally | `/health` returned HTTP 200 through Ingress |
+| Terraform AWS configuration | ✅ Validated | `terraform fmt -check` and `terraform validate` passed |
+| AWS EC2 provisioning | 🔵 On demand | Not recreated for documentation to avoid unnecessary charges |
+| Prometheus and Grafana | ⚪ Planned | Future monitoring enhancement |
 
 ------------------------------------------------------------------------
 
