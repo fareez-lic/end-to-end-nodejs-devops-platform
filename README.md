@@ -170,6 +170,10 @@ Run the test suite:
 ```bash
 npm test
 ```
+### Test result
+
+![Successful npm test result](assets/npm-test-pass.png)
+
 # 🛠️ Technology Stack
 
 | Technology | Purpose |
