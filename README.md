@@ -63,6 +63,19 @@ curl http://localhost:3000/health
 ```
 
 
+# 🔁 CI/CD Pipeline
+
+The Jenkins pipeline is defined in `Jenkinsfile` and performs these stages:
+
+1. Install Node.js dependencies with `npm install`
+2. Run automated tests with `npm test`
+3. Build the Docker image: `kam810/devops-node-app:latest`
+4. Push the image to Docker Hub using Jenkins credentials
+
+Docker Hub credentials are stored in Jenkins with the credential ID `dockerhub`; no password or token is stored in this repository.
+
+The pipeline reports whether the build completed successfully or failed.
+
 
 # 🏗️ Architecture
 
