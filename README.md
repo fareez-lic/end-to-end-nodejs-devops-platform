@@ -211,7 +211,7 @@ npm test
 # 📁 Project Structure
 
 ``` text
-devops-node-app/
+end-to-end-nodejs-devops-platform/
 ├── app.js
 ├── app.test.js
 ├── Dockerfile
