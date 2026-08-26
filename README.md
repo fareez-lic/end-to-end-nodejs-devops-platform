@@ -473,6 +473,8 @@ Example response:
 
 # 🔍 Troubleshooting Experience
 
+For the complete incident history, root-cause analysis and validated solutions, see [Challenges and Solutions](docs/challenges-and-solutions.md).
+
 This project demonstrated real DevOps troubleshooting:
 
 ``` text
